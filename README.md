@@ -1,13 +1,11 @@
 Realsense D435 for openframeworks
 ====
 
-Overview
-
-## Description
-
-## Requirement
-
 ## Usage
+ここからlibrealsenseをダウンロードしてビルドする。
+(使用したバージョンは2.9.0)
+https://github.com/IntelRealSense/librealsense
+
 
 
 ## Licence
