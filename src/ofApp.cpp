@@ -12,7 +12,7 @@ void ofApp::setup(){
 
 	//Add desired streams to configuration
 	cfg.enable_stream(RS2_STREAM_COLOR, COLOR_W, COLOR_H, RS2_FORMAT_RGB8, FPS_COLOR);
-	cfg.enable_stream(RS2_STREAM_DEPTH, DEPTH_W, DEPTH_H, RS2_FORMAT_Z16, FPS_DEPTH);
+	//cfg.enable_stream(RS2_STREAM_DEPTH, DEPTH_W, DEPTH_H, RS2_FORMAT_Z16, FPS_DEPTH);
 
 	// The pipeline profile includes a device and a selection of active streams, with specific profile.
 	selection = pipe.start(cfg);
@@ -23,7 +23,7 @@ void ofApp::setup(){
 	// the list of adjacent devices
 	sensors = selected_device.query_sensors();
 
-	cout << "sensor count " << sensors.size() << endl;
+	//cout << "sensor count " << sensors.size() << endl;
 
 	// init gui
 	auto s = sensors[1];
@@ -185,11 +185,9 @@ void ofApp::update(){
 //#endif
 
 	data = pipe.wait_for_frames();
-	depth = color_map(data.get_depth_frame());
+	//depth = color_map(data.get_depth_frame());
 
-	//std::cout << depth.get_frame_number() << std::endl;
-
-	depth_img.setFromPixels((unsigned char*)depth.get_data(), DEPTH_W, DEPTH_H, OF_IMAGE_COLOR);
+	//depth_img.setFromPixels((unsigned char*)depth.get_data(), DEPTH_W, DEPTH_H, OF_IMAGE_COLOR);
 
 	color = data.get_color_frame();
 	color_img.setFromPixels((unsigned char*)color.get_data(), COLOR_W, COLOR_H, OF_IMAGE_COLOR);
@@ -200,8 +198,8 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	ofBackground(255);
-	color_img.draw(640, 0, 640, 480);
-	depth_img.draw(0, 0, 640, 480);
+	color_img.draw(0, 0, 640, 480);
+	//depth_img.draw(0, 0, 640, 480);
 
 	if (showGui)
 	{
@@ -259,7 +257,7 @@ void ofApp::update_camera_params_color()
 		auto range = s.get_option_range(RS2_OPTION_WHITE_BALANCE);
 		s.set_option(RS2_OPTION_WHITE_BALANCE, int(white_balance_c / range.step) * range.step);
 	}
-	if (s.supports(RS2_OPTION_ENABLE_AUTO_EXPOSURE))
+	if (s.supports(RS2_OPTION_ENABLE_AUTO_EXPOSURE) && enable_auto_exposure_c)
 	{
 		s.set_option(RS2_OPTION_ENABLE_AUTO_EXPOSURE, enable_auto_exposure_c);
 	}
@@ -285,6 +283,10 @@ void ofApp::keyPressed(int key){
 	case 'g':
 		showGui = !showGui;
 		break;
+
+	//case ' ':
+	//	update_camera_params_color();
+	//	break;
 
 	default:
 		break;
