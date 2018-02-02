@@ -228,7 +228,7 @@ void ofApp::update_camera_params_color()
 	{
 		s.set_option(RS2_OPTION_CONTRAST, contrast_c);
 	}
-	if (s.supports(RS2_OPTION_EXPOSURE))
+	if (s.supports(RS2_OPTION_EXPOSURE) && !enable_auto_exposure_c)
 	{
 		s.set_option(RS2_OPTION_EXPOSURE, exposure_c);
 	}
